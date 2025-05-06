@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Lab</title>
+  </head>
+  <style>
+    h1 {
+      font-size: 60px;
+      text-align: center;
+      font-style: italic;
+      background-color: green;
+      color: white;
+      padding: 20px 0px;
+    }
+  
+    img {
+      display: block;
+      margin: auto;
+      width: 500px;
+    }
+    .form-check {
+      width: 250px;
+      margin: auto;
+      padding-top: 50px;
+    }
+    input {
+      font-size: 30px;
+      margin-bottom: 30px;
+      width: 580px;
+      height: 50px;
+    }
+    button {
+      background-color: green;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 5px;
+      font-size: 20px;
+      width: 150px;
+      height: 50px;
+    }
+    #log{
+        font-size: 30px;
+        margin: auto;
+        width: 50%;
+    }
+    .form-check{
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+    }
+    p{
+      width: 50%;
+    }
+    .aproch{
+      width: 50%;
+      /* display: flex; */
+      font-size: 20px;
+      margin: auto;
+      justify-content: space-between;
+    }
+  li{
+    padding-top: 20px;
+  }
+  </style>
+  <body>
+    
+    <h1>WelCom To WebSocket Test Lab</h1>
+    <div class="aproch">
+      <img
+      src="https://i.pinimg.com/736x/28/46/56/2846566e3123490dbf3395a8fb4177ba.jpg"
+      alt="" />
+      <h2>🧭 What Can You Do in This Lab?</h2>
+      <ul>
+        <li>
+          Connect to the WebSocket Server automatically when you open the webpage.
+        </li>
+        
+<li>
+ Type a message in the input field. 
+</li>
+
+
+<li>
+  Click "Send" to send the message to the server.
+</li>
+<li>
+  Receive a reply from the server (it will echo your message).
+</li>
+
+
+
+
+      </p>
+    </div>
+    
+    <div class="form-check">
+      <input type="text" id="msg" placeholder="Type a message" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    <div id="log"></div>
+    <script>
+      const ws = new WebSocket("ws://localhost:8080");
+
+      ws.onopen = () => log("Connected to server");
+      ws.onmessage = (event) => log("Server: " + event.data);
+      ws.onclose = () => log("Disconnected");
+
+      function sendMessage() {
+        const msg = document.getElementById("msg").value;
+        ws.send(msg);
+        log("You: " + msg);
+      }
+
+      function log(message) {
+        const log = document.getElementById("log");
+        log.innerHTML += `<p>${message}</p>`;
+      }
+    </script>
+  </body>
+</html>
